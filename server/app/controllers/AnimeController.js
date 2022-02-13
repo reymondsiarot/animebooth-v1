@@ -1,4 +1,5 @@
 const AnimeRepository = require("../repositories/AnimeRepository");
+const GenreRepository = require("../repositories/GenreRepository");
 
 class AnimeController {
   anime = async (req, res) => {
@@ -10,6 +11,10 @@ class AnimeController {
     console.log(req.params.id);
     let data = await AnimeRepository.fetchAnime(req.params.id);
     res.json(data);
+  };
+  animeGenres = async (req, res) => {
+    let data = await GenreRepository.fetchGenres();
+    res.send(data);
   };
 }
 
