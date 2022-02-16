@@ -7,11 +7,17 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
+    "autoprefixer": "^9.8.8",
     "core-js": "^3.6.5",
+    "material-design-icons-iconfont": "^6.1.1",
+    "postcss": "^7.0.39",
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.17",
     "vue": "^2.6.11",
+    "vue-cli-plugin-editorconfig": "^0.2.1",
     "vue-cookies": "^1.7.4",
     "vue-cookies-reactive": "^2.1.1",
     "vue-router": "^3.2.0",
+    "vuetify": "^2.6.3",
     "vuex": "^3.4.0"
   },
   "devDependencies": {
@@ -19,8 +25,11 @@
     "@vue/cli-plugin-router": "~4.5.0",
     "@vue/cli-plugin-vuex": "~4.5.0",
     "@vue/cli-service": "~4.5.0",
-    "vue-template-compiler": "^2.6.11"
-  },
-  "_id": "app@0.1.0",
-  "readme": "ERROR: No README data found!"
+    "deepmerge": "^4.2.2",
+    "sass": "~1.32",
+    "sass-loader": "^10.2.1",
+    "vue-template-compiler": "^2.6.14",
+    "vuetify-loader": "^1.7.0",
+    "webpack": "^4.0.0"
+  }
 }

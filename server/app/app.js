@@ -6,7 +6,7 @@ const bodyParser = require("body-parser");
 
 app.use(bodyParser.json());
 app.use(compression());
-app.use(require("../routes"));
+app.use(require("../routes/routes"));
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

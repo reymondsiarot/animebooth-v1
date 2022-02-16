@@ -10,9 +10,6 @@ export default {
           return this.$cookies.get("me");
         },
       },
-      mounted() {
-        console.log("SOTRE", store);
-      },
     });
   },
 };

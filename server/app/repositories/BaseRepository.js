@@ -35,8 +35,15 @@ class BaseRepository {
   create = async (data) => {
     return await this.model.create(data);
   };
-  bulkCreate = (data) => {
-    return this.model.bulkCreate(data);
+  bulkCreate = async (data) => {
+    const model = await this.model.findAll({
+      where: { mal_id: [data.map((item) => item.mal_id)] },
+    });
+    console.log(model.find((i) => i.mal_id == item.mal_id));
+    const ndata = data.filter(
+      (item) => !model.find((i) => i.mal_id == item.mal_id)
+    );
+    return this.model.bulkCreate(ndata);
   };
 }
 

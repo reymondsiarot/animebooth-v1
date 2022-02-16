@@ -13,7 +13,6 @@ class GenreRepository extends BaseRepository {
       const data = await this.fetchAPI("/genres/anime");
       if (data.data) {
         let created = await this.bulkCreate(data.data);
-        console.log(created);
         return created;
       }
 
