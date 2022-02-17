@@ -28,7 +28,7 @@
     @apply tw-w-16 tw-h-16 tw-rounded-md;
   }
   .anime-box .image-container .main-image {
-    @apply tw-w-full tw-h-full tw-rounded-md;
+    @apply tw-w-full lg:tw-h-[240px] md:tw-h-[200px] tw-h-[300px] tw-rounded-md;
   }
   .anime-box .title-container {
     @apply tw-text-gray-300 hover:tw-text-white tw-py-1;
@@ -43,7 +43,7 @@
     @apply tw-text-base tw-pb-1 tw-mb-1 tw-font-bold tw-leading-5;
   }
   .anime-popup-menu .watch-link {
-    @apply hover:tw-bg-[#C2314D] bg-primary tw-text-white tw-rounded-full tw-px-5 tw-py-2 tw-flex tw-items-center tw-space-x-1 tw-justify-center tw-w-full;
+    @apply hover:tw-bg-[#C2314D] bg-primary tw-text-white tw-rounded-full tw-px-5 tw-py-2 tw-flex tw-items-center tw-space-x-2 tw-justify-center tw-w-full;
   }
 
   /* header start*/

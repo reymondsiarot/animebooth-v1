@@ -22,5 +22,14 @@ class AnimeRepository extends BaseRepository {
       return er;
     }
   };
+
+  list = async () => {
+    try {
+      let created = await this.model.findAll();
+      return created;
+    } catch (er) {
+      return er;
+    }
+  };
 }
 module.exports = new AnimeRepository(Anime);

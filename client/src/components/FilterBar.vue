@@ -36,10 +36,7 @@ export default {
 
   computed: {
     genres() {
-      let genres = [
-        { id: 1, name: "All" },
-        { id: 1, name: "anime" },
-      ];
+      let genres = [{ id: 2, name: "anime" }];
       return genres ? genres : [];
     },
   },

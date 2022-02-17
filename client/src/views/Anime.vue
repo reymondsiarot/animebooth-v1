@@ -11,7 +11,7 @@
         <div>
           <div class="tw-grid tw-grid-cols-2  sm:tw-grid-cols-3 md:tw-grid-cols-4 xl:tw-grid-cols-5  tw-gap-2">
 
-            <!-- <AnimeBox v-for="anime in myAnimeList" :key="anime.id" :anime="anime"></AnimeBox> -->
+            <AnimeBox v-for="anime in animeList" :key="anime.id" :anime="anime"></AnimeBox>
 
           </div>
           <div class="text-center">
@@ -28,12 +28,33 @@
 </template>
 
 <script>
+import { anime } from "../graphql/anime";
+import AnimeBox from "../components/AnimeBox.vue";
 import NavBreadCrumbs from "../components/NavBreadCrumbs.vue";
 import FilterBar from "../components/FilterBar.vue";
 export default {
   components: {
     NavBreadCrumbs,
     FilterBar,
+    AnimeBox,
+  },
+  data() {
+    return {
+      // Initialize your apollo data
+      animeList: [],
+    };
+  },
+  mounted() {
+    console.log("ANIME", this.anime);
+  },
+  watch: {
+    animeList() {
+      console.log("ANIME", this.anime);
+    },
+  },
+
+  apollo: {
+    animeList: anime,
   },
 };
 </script>

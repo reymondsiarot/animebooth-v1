@@ -4,19 +4,19 @@
       <template v-slot:activator="{ on, attrs }">
         <a @click="watchNow(anime)">
 
-          <div class="image-container" v-bind="attrs" v-on="on">
+          <div class="image-container  tw-overflow-hidden" v-bind="attrs" v-on="on">
             <div class="anime-type">
-              <div v-if="anime.type == 'TV'" class="anime-type-item"><span>Ep: {{` ${anime.episodes.length}/${anime.episode_count}`}}</span></div>
+              <div v-if="anime.type == 'TV'" class="anime-type-item"><span>Ep: {{` ${anime.episodes}/10`}}</span></div>
               <div v-if="anime.type == 'Movie'" class="anime-type-item"><span>Movie</span></div>
             </div>
 
             <div class="play-anime">
               <div class="play-anime-container">
-                <img src="/api/image?src=storage/assets/icons/play.png" alt="wewewewewew">
+                <v-icon size="50">play_arrow</v-icon>
               </div>
             </div>
 
-            <img :src="`/api/image?src=storage/assets/animebox/${anime.image}`" class="main-image" alt="">
+            <img :src="JSON.parse(anime.images).jpg.image_url" class="main-image " alt="">
           </div>
 
           <div class="title-container">
@@ -35,15 +35,15 @@
             </div>
             <div class=" tw-mb-2 tw-text-sm">
               <span>Genres: </span>
-              <v-btn dark small plain text elevation="0" color="white" class="px-0 py-0 tw-opacity-100" @click="gotoGenre(genre)" v-for="(genre,i) in genres" :key="i">
+              <button color="white" class="px-0 py-0 my-0 tw-opacity-100" @click="gotoGenre(genre)" v-for="(genre,i) in genres" :key="i">
                 <span class="hover:tw-underline tw-text-white"> {{ genre }}</span>
-                <span class="tw-text-gray-200" v-if="i < genres.length-1">,</span>
-              </v-btn>
+                <span class="tw-text-gray-200 tw-mr-1" v-if="i < genres.length-1">, </span>
+              </button>
             </div>
           </div>
           <div class="tw-w-full">
             <a @click="watchNow(anime)" class="watch-link">
-              <img src="/api/image?src=storage/assets/icons/play.png" class="tw-w-5 tw-h-5 tw-rounded-md tw--ml-2 " alt="anime">
+              <v-icon size="30" class="tw-w-5 tw-h-5 tw-rounded-md tw--ml-2">play_arrow</v-icon>
               <span class="tw-font-semibold tw-text-white"> WATCH NOW</span>
             </a>
           </div>

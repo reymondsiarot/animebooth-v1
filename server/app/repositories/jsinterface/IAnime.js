@@ -26,20 +26,10 @@ module.exports = (data) => {
     background: data.background ? data.background : "",
     premiered: data.premiered ? data.premiered : "",
     broadcast: data.broadcast ? data.broadcast : {},
-    related: data.related
-      ? Object.values(data.related).map((item) => item.mal_id)
-      : [],
-    producers: data.producers
-      ? Object.values(data.producers).map((producer) => producer.mal_id)
-      : [],
-    licensors: data.licensors
-      ? Object.values(data.licensors).map((licensor) => licensor.mal_id)
-      : [],
-    studios: data.studios
-      ? Object.values(data.studios).map((studio) => studio.mal_id)
-      : [],
-    genres: data.genres
-      ? Object.values(data.genres).map((genre) => genre.mal_id)
-      : [],
+    related: data.related ? data.related : [],
+    producers: data.producers ? data.producers : [],
+    licensors: data.licensors ? data.licensors : [],
+    studios: data.studios ? data.studios : [],
+    genres: data.genres ? data.genres : [],
   };
 };
