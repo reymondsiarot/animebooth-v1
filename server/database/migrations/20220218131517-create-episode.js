@@ -1,26 +1,36 @@
 "use strict";
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("Genres", {
+    await queryInterface.createTable("Episodes", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      mal_id: {
+      anime_id: {
         type: Sequelize.INTEGER,
-        unique: true,
       },
-      status: {
-        type: Sequelize.STRING,
-        defaultValue: "active",
-      },
-      name: {
+      title: {
         type: Sequelize.STRING,
       },
-      url: {
+      description: {
         type: Sequelize.STRING,
+      },
+      video: {
+        type: Sequelize.STRING,
+      },
+      trailer_video: {
+        type: Sequelize.STRING,
+      },
+      banner: {
+        type: Sequelize.STRING,
+      },
+      icon: {
+        type: Sequelize.STRING,
+      },
+      episode_number: {
+        type: Sequelize.INTEGER,
       },
       createdAt: {
         allowNull: false,
@@ -33,6 +43,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("Genres");
+    await queryInterface.dropTable("Episodes");
   },
 };

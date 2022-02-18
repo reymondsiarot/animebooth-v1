@@ -20,7 +20,8 @@
     "graphql": "^16.3.0",
     "mysql2": "^2.3.3",
     "nodemon": "^2.0.15",
-    "sequelize": "^6.15.0"
+    "sequelize": "^6.15.0",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "sequelize-cli": "^6.4.1"

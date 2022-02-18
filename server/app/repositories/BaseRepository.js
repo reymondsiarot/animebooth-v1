@@ -1,4 +1,6 @@
 const { jikanAPI } = require("../http/index");
+const { v4: uuidv4 } = require("uuid");
+
 class BaseRepository {
   constructor(model) {
     this.model = model;
@@ -26,7 +28,7 @@ class BaseRepository {
         return await this.model.update(values, { where: condition });
       }
       // insert
-      return await this.model.create(values);
+      return await this.model.create({ ...values, anime_link: uuidv4() });
     } catch (er) {
       return er;
     }
@@ -37,13 +39,12 @@ class BaseRepository {
   };
   bulkCreate = async (data) => {
     const model = await this.model.findAll({
-      where: { mal_id: [data.map((item) => item.mal_id)] },
+      where: { mal_id: data.map((item) => item.mal_id) },
     });
-    console.log(model.find((i) => i.mal_id == item.mal_id));
     const ndata = data.filter(
       (item) => !model.find((i) => i.mal_id == item.mal_id)
     );
-    return this.model.bulkCreate(ndata);
+    return this.model.bulkCreate(ndata, { ignoreDuplicates: true });
   };
 }
 

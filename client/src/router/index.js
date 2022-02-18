@@ -5,6 +5,8 @@ Vue.use(VueRouter);
 
 const Home = () => import("../views/Home.vue");
 const AnimeList = () => import("../views/Anime.vue");
+const WatchAnime = () => import("../views/watch/Watch.vue");
+const Episode = () => import("../views/watch/Episode.vue");
 
 const routes = [
   {
@@ -16,6 +18,17 @@ const routes = [
     path: "/animelist",
     name: "animelist",
     component: AnimeList,
+  },
+  {
+    path: "/watch/:link",
+    name: "watch",
+    component: WatchAnime,
+    children: [
+      {
+        path: ":episodeNumber",
+        component: Episode,
+      },
+    ],
   },
 ];
 

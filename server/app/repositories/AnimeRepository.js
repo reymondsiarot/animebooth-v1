@@ -31,5 +31,14 @@ class AnimeRepository extends BaseRepository {
       return er;
     }
   };
+
+  findOneByLink = async (link) => {
+    try {
+      let created = await this.model.findOne({ where: { anime_link: link } });
+      return created;
+    } catch (er) {
+      return er;
+    }
+  };
 }
 module.exports = new AnimeRepository(Anime);

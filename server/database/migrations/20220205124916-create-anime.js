@@ -12,6 +12,10 @@ module.exports = {
         type: Sequelize.INTEGER,
         unique: true,
       },
+      anime_link: {
+        type: Sequelize.STRING,
+        unique: true,
+      },
       url: {
         type: Sequelize.STRING,
       },

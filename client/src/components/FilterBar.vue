@@ -13,12 +13,12 @@
                 </div>
               </v-btn>
             </template>
-            <div class="tw-grid tw-grid-cols-3 tw-bg-[#1F2937] tw-p-4 tw-gap-0 tw-border tw-border-gray-900">
+            <div class="tw-grid tw-grid-cols-4 tw-bg-[#1F2937] tw-p-4 tw-gap-0 tw-border tw-border-gray-900">
               <v-btn @click="setCategory('ALL')" class="tw-border tw-border-gray-900 catlink" outlined color="white">
                 <span class=" tw-text-xs tw-font-normal">ALL</span>
               </v-btn>
-              <v-btn @click="setCategory(cat.name)" class="tw-border tw-border-gray-900 catlink" outlined color="white" tile v-for="(cat,index) in genres" :key="index">
-                <span class=" tw-text-xs tw-font-normal">{{cat.name  }}</span>
+              <v-btn @click="setCategory(cat.name)" :class="`tw-border tw-border-gray-900 catlink ${$route.query.genre == cat.name ? 'tw-bg-gray-500' :''}`" outlined color="white" tile v-for="(cat,index) in genres" :key="index">
+                <span :class=" `tw-text-xs tw-font-normal `">{{cat.name  }}</span>
               </v-btn>
             </div>
           </v-menu>
@@ -29,17 +29,15 @@
 </template>
 
 <script>
+import GQLGenre from "../graphql/genres.js";
 export default {
+  apollo: {
+    genres: GQLGenre,
+  },
   data: () => ({
     selectedGenre: "All",
+    genres: [],
   }),
-
-  computed: {
-    genres() {
-      let genres = [{ id: 2, name: "anime" }];
-      return genres ? genres : [];
-    },
-  },
   methods: {
     setCategory(cat) {
       this.selectedGenre = cat;

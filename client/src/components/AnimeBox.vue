@@ -8,6 +8,7 @@
             <div class="anime-type">
               <div v-if="anime.type == 'TV'" class="anime-type-item"><span>Ep: {{` ${anime.episodes}/10`}}</span></div>
               <div v-if="anime.type == 'Movie'" class="anime-type-item"><span>Movie</span></div>
+              <div v-if="anime.type == 'OVA'" class="anime-type-item"><span>OVA</span></div>
             </div>
 
             <div class="play-anime">
@@ -58,8 +59,8 @@ export default {
   props: ["anime"],
   computed: {
     genres() {
-      if (this.anime.genres) {
-        let anime = JSON.parse(this.anime.genres);
+      if (this.anime.genre_list) {
+        let anime = this.anime.genre_list;
         return anime.map((genre) => genre.name);
       }
     },
@@ -71,7 +72,6 @@ export default {
       );
     },
     watchNow(anime) {
-      console.log("WATCH", anime);
       this.$router.push({
         path: `/watch/${anime.anime_link}`,
       });

@@ -14,6 +14,7 @@ module.exports = (sequelize, DataTypes) => {
   Anime.init(
     {
       mal_id: DataTypes.INTEGER,
+      anime_link: DataTypes.STRING,
       url: DataTypes.STRING,
       images: DataTypes.JSON,
       trailer: DataTypes.JSON,

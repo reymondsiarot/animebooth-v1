@@ -5,7 +5,8 @@
       <div class="md:tw-col-span-5 tw-w-full">
         <v-card flat color="#1f2937" class="tw-mb-2">
           <v-card-title class="tw-bg-[#1F2937] tw-py-0 tw-px-0 tw-justify-between py-0">
-            <FilterBar></FilterBar>
+            <FilterBar v-if="true"></FilterBar>
+
           </v-card-title>
         </v-card>
         <div>
@@ -28,7 +29,8 @@
 </template>
 
 <script>
-import { anime } from "../graphql/anime";
+import anime from "../graphql/anime";
+
 import AnimeBox from "../components/AnimeBox.vue";
 import NavBreadCrumbs from "../components/NavBreadCrumbs.vue";
 import FilterBar from "../components/FilterBar.vue";

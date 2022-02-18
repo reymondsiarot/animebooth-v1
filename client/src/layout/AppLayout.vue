@@ -1,7 +1,5 @@
 <template>
-
   <v-app dark>
-
     <div class="cdrop-shadow tw-bg-black">
       <Header></Header>
     </div>

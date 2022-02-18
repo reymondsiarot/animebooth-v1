@@ -6,7 +6,14 @@ class GenreRepository extends BaseRepository {
   constructor(model) {
     super(model);
   }
-
+  list = async () => {
+    try {
+      let created = await this.model.findAll();
+      return created;
+    } catch (er) {
+      return er;
+    }
+  };
   fetchGenres = async () => {
     try {
       //https://api.jikan.moe/v4/genres/anime

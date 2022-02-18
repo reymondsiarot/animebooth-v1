@@ -2,6 +2,7 @@ module.exports = `
     type Anime {
       id: ID,
       mal_id: Int,
+      anime_link:String,
       url:String,
       images: String,
       trailer: String,
@@ -12,6 +13,7 @@ module.exports = `
       type: String,
       source: String,
       episodes: Int,
+      episode_list: [Episode],
       status: String,
       airing: Boolean ,
       aired: String,
@@ -32,6 +34,7 @@ module.exports = `
       licensors: String,
       studios: String,
       genres: String,
+      genre_list: [Genre],
       createdAt: String,
       updatedAt: String
 }
