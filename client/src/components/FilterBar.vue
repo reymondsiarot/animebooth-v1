@@ -41,7 +41,6 @@ export default {
   methods: {
     setCategory(cat) {
       this.selectedGenre = cat;
-
       if (this.selectedGenre.toLowerCase() == "all") {
         this.$router.push({
           path: "/animelist",

@@ -8,8 +8,20 @@ const typeDefs = gql`
   ${animeSchema}
   ${episodeSchema}
   ${genreSchema}
+
+  type AnimeList {
+    count: Int
+    rows: [Anime]
+  }
+
   type Query {
-    animeList: [Anime]
+    animeList(
+      page: Int
+      search: String
+      genre: String
+      limit: Int
+      is_search: Boolean
+    ): AnimeList
     anime(id: ID!): Anime
     episode(id: ID!): Episode
     getAnimeByLink(link: String!): Anime

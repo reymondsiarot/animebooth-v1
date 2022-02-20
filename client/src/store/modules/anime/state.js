@@ -1,4 +1,5 @@
 const state = {
-  count: 1,
+  animeList: [],
+  animeListSearched:[]
 };
 export default state;

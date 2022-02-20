@@ -12,11 +12,11 @@
         <div>
           <div class="tw-grid tw-grid-cols-2  sm:tw-grid-cols-3 md:tw-grid-cols-4 xl:tw-grid-cols-5  tw-gap-2">
 
-            <AnimeBox v-for="anime in animeList" :key="anime.id" :anime="anime"></AnimeBox>
+            <AnimeBox v-for="anime in animeList.rows" :key="anime.id" :anime="anime"></AnimeBox>
 
           </div>
           <div class="text-center">
-            <!-- <v-pagination v-model="page" :length="animeCount" :total-visible="7" circle></v-pagination> -->
+            <v-pagination v-model="page" :length="1" :total-visible="4" circle></v-pagination>
           </div>
         </div>
       </div>
@@ -29,8 +29,7 @@
 </template>
 
 <script>
-import anime from "../graphql/anime";
-
+import { mapState, mapMutations, mapActions } from "vuex";
 import AnimeBox from "../components/AnimeBox.vue";
 import NavBreadCrumbs from "../components/NavBreadCrumbs.vue";
 import FilterBar from "../components/FilterBar.vue";
@@ -42,21 +41,39 @@ export default {
   },
   data() {
     return {
-      // Initialize your apollo data
-      animeList: [],
+      page: 1,
+      search: "",
+      genre: "",
     };
   },
-  mounted() {
-    console.log("ANIME", this.anime);
+  computed: {
+    ...mapState("anime", ["animeList"]),
   },
-  watch: {
-    animeList() {
-      console.log("ANIME", this.anime);
+  methods: {
+    ...mapMutations("anime", ["setAnimeList"]),
+    ...mapActions("anime", ["getAnimeList"]),
+    async initAnimeList() {
+      this.page = this.$route.query.page || 1;
+      this.search = this.$route.query.q || "";
+      this.genre = this.$route.query.genre || "";
+      await this.getAnimeList({
+        genre: this.genre,
+        search: this.search,
+        page: this.page,
+      });
+      console.log("ANIME LIST", this.animeList);
     },
   },
-
-  apollo: {
-    animeList: anime,
+  async mounted() {
+    await this.initAnimeList();
+  },
+  watch: {
+    "$route.query.q": async function (val) {
+      await this.initAnimeList();
+    },
+    "$route.query.genre": async function (val) {
+      await this.initAnimeList();
+    },
   },
 };
 </script>

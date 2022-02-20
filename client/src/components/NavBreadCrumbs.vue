@@ -11,7 +11,7 @@
           <v-icon small color="#9CA3AF">keyboard_arrow_left </v-icon>
           <div class="tw-flex tw-flex-grow tw-justify-between tw-items-center tw-rounded-full tw-px-2 tw-space-x-3  tw-bg-gray-800">
             <div class="tw-text-sm tw-flex-1 tw-flex">{{ $route.query.q }}</div>
-            <v-icon link class="tw-h-3 tw-w-3 tw-cursor-pointer tw-rounded-full" @click="removeSearch" small color="#C2314D">mdi-close</v-icon>
+            <v-icon link class="tw-h-3 tw-w-3 tw-cursor-pointer tw-rounded-full" @click="removeSearch" small color="#C2314D">mdi_close</v-icon>
           </div>
         </div>
       </div>

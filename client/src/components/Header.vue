@@ -15,31 +15,31 @@
         </v-bottom-navigation>
       </div>
 
-      <v-menu :max-width="366" :open-delay="500" offset-y transition="scale-transition">
+      <v-menu :max-width="366" :open-delay="500" offset-y transition="scale-transition" :value="animeList">
         <template v-slot:activator="{ on, attrs }">
           <div class="tw-flex tw-justify-end tw-items-center tw-space-x-3">
-            <v-progress-circular indeterminate color="#BD203E"></v-progress-circular>
-            <v-text-field v-model="searchAnime" hide-details="true" placeholder="Search Anime..." filled rounded dense v-bind="attrs" v-on="on"></v-text-field>
+            <v-progress-circular v-if="$apollo.loading" indeterminate color="#BD203E"></v-progress-circular>
+            <v-text-field v-model="searchText" hide-details="true" placeholder="Search Anime..." filled rounded dense v-bind="attrs" v-on="on"></v-text-field>
             <v-btn class="tw-h-full" rounded color="#BD203E">Suggest</v-btn>
           </div>
         </template>
-        <div class="tw-my-2 tw-bg-[#121212] tw-w-full tw-h-full top-anime tw-shadow-lg tw-border-2 tw-border-[#BD203E] tw-px-2 tw-py-2">
+        <div class="tw-my-2 tw-bg-[#121212] tw-w-full tw-h-full top-anime tw-shadow-lg tw-border-2 tw-border-[#BD203E] tw-px-2 tw-py-2" v-show="searchText">
           <div class="tw-flex tw-justify-between">
-            <span>Search Results: 123</span>
+            <span>Search Results: {{resultCount}}</span>
             <span>
-              <router-link class="tw-text-sm tw-font-bold" :to="`/animelist?q=`">More Results</router-link>
+              <router-link class="tw-text-sm tw-font-bold" :to="`/animelist?q=${searchText}`">More Results</router-link>
             </span>
           </div>
-          <div class="item scrollbar">
+          <div class="item scrollbar" v-for="(anime,i) in animeList" :key="i">
             <div class="inner-item tw-relative">
               <div class="image-container">
-                <img :src="`/api/image?src=storage/assets/animebox/`" class="tw-w-full tw-h-full" alt="">
+                <img :src="JSON.parse(anime.images).jpg.image_url" class="tw-w-full tw-h-full" alt="">
               </div>
               <div class="tw-col-span-5 tw-pr-2">
                 <div>
-                  <div class="tw-text-sm">TEST</div>
-                  <div class="tw-text-xs tw-text-gray-400 mb-2">TEST</div>
-                  <div class="tw-text-gray-400 tw-text-xs">TEST</div>
+                  <div class="tw-text-sm">{{ anime.title }}</div>
+                  <div class="tw-text-xs tw-text-gray-400 mb-2">{{ anime.synopsis.slice(0,50)+"..." }}</div>
+                  <div class="tw-text-gray-400 tw-text-xs">{{ anime.duration }}</div>
 
                 </div>
               </div>
@@ -57,13 +57,30 @@
 </template>
 
 <script>
+import { mapActions, mapState } from "vuex";
 export default {
   data: () => ({
-    searchAnime: "",
+    searchText: "",
   }),
+  computed: {
+    ...mapState("anime", ["animeListSearched"]),
+    animeList() {
+      return this.animeListSearched && this.animeListSearched.rows;
+    },
+    resultCount() {
+      return (
+        this.animeListSearched &&
+        this.animeListSearched.rows &&
+        this.animeListSearched.rows.length
+      );
+    },
+  },
+  methods: {
+    ...mapActions("anime", ["getAnimeListSearched"]),
+  },
   watch: {
-    searchAnime() {
-      if (this.searchAnime == "") {
+    searchText() {
+      if (this.searchText == "") {
         return (this.filteredAnime = null);
       }
       if (this.timer) {
@@ -71,12 +88,9 @@ export default {
         this.timer = null;
       }
       this.timer = setTimeout(async () => {
-        let payload = {
-          page: 1,
-          q: this.searchAnime,
-          genre: "",
-        };
-        console.log("SEARCHING ANIME");
+        await this.getAnimeListSearched({
+          search: this.searchText,
+        });
       }, 500);
     },
   },

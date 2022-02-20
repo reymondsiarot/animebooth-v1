@@ -1,11 +1,26 @@
 const AnimeRepository = require("../repositories/AnimeRepository");
 const EpisodeRepository = require("../repositories/EpisodeRepository");
 const GenreRepository = require("../repositories/GenreRepository");
+const { Op } = require("sequelize");
 
 module.exports = {
+  //MAIN QUERY
   Query: {
     animeList: async (parent, args, context, info) => {
-      return await AnimeRepository.list();
+      const page = args.page || 1;
+      const search = args.search;
+      const limit = search && args.is_search ? 5 : args.limit || 10;
+
+      const fa = await AnimeRepository.model.findAndCountAll({
+        where: {
+          title: {
+            [Op.like]: `%${search}%`,
+          },
+        },
+        offset: (page - 1) * limit,
+        limit: limit,
+      });
+      return ({ count, rows } = fa);
     },
     anime: async (parent, args, context, info) => {
       return await AnimeRepository.findOne(args.id);
@@ -21,10 +36,9 @@ module.exports = {
     },
     genres: async (parent, args, context, info) => {
       return await GenreRepository.list();
-    }
-    
+    },
   },
-
+  //ANIME QUERY MODEL
   Anime: {
     episode_list: async (parent) => {
       return await EpisodeRepository.getEpisodesByAnimeId(parent.id);
@@ -35,7 +49,7 @@ module.exports = {
       });
     },
   },
-
+  //EPISODE QUERY MODEL
   Episode: {
     anime: async (parent) => {
       return await AnimeRepository.model.findOne({

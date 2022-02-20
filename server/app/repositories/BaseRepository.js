@@ -28,7 +28,10 @@ class BaseRepository {
         return await this.model.update(values, { where: condition });
       }
       // insert
-      return await this.model.create({ ...values, anime_link: uuidv4() });
+      return await this.model.create({
+        ...values,
+        anime_link: values.title.split(" ").join("_").toLowerCase(),
+      });
     } catch (er) {
       return er;
     }
