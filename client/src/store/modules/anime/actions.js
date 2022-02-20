@@ -10,9 +10,8 @@ const actions = {
     if (errors) {
       throw errors;
     }
-
     commit("setAnimeList", data.animeList);
-    console.log("AWd", data);
+    console.log("GET ANIME LIST ACTION", data);
   },
   getAnimeListSearched: async ({ commit }, payload) => {
     const { data, errors } = await apolloQuery.query({

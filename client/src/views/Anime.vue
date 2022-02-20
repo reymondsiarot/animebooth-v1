@@ -16,7 +16,7 @@
 
           </div>
           <div class="text-center">
-            <v-pagination v-model="page" :length="1" :total-visible="4" circle></v-pagination>
+            <v-pagination v-if="pageLength > 1" v-model="page" :length="pageLength" :total-visible="4" circle></v-pagination>
           </div>
         </div>
       </div>
@@ -42,27 +42,10 @@ export default {
   data() {
     return {
       page: 1,
+      itemPerPage: 20,
       search: "",
       genre: "",
     };
-  },
-  computed: {
-    ...mapState("anime", ["animeList"]),
-  },
-  methods: {
-    ...mapMutations("anime", ["setAnimeList"]),
-    ...mapActions("anime", ["getAnimeList"]),
-    async initAnimeList() {
-      this.page = this.$route.query.page || 1;
-      this.search = this.$route.query.q || "";
-      this.genre = this.$route.query.genre || "";
-      await this.getAnimeList({
-        genre: this.genre,
-        search: this.search,
-        page: this.page,
-      });
-      console.log("ANIME LIST", this.animeList);
-    },
   },
   async mounted() {
     await this.initAnimeList();
@@ -73,6 +56,36 @@ export default {
     },
     "$route.query.genre": async function (val) {
       await this.initAnimeList();
+    },
+    async page() {
+      this.$router.push({ query: { page: this.page } });
+      await this.initAnimeList();
+    },
+  },
+  computed: {
+    ...mapState("anime", ["animeList"]),
+    pageLength() {
+      if (this.animeList) {
+        const count = this.animeList.count || 1;
+        return Math.ceil(count / this.itemPerPage);
+      }
+      return 1;
+    },
+  },
+  methods: {
+    ...mapMutations("anime", ["setAnimeList"]),
+    ...mapActions("anime", ["getAnimeList"]),
+    async initAnimeList() {
+      this.page = Number(this.$route.query.page) || 1;
+      this.search = this.$route.query.q || "";
+      this.genre = this.$route.query.genre || "";
+      const limit = this.itemPerPage;
+      await this.getAnimeList({
+        genre: this.genre,
+        search: this.search,
+        page: this.page,
+        limit,
+      });
     },
   },
 };

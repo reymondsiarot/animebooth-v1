@@ -20,14 +20,10 @@ export default gql`
         id
         mal_id
         anime_link
-        episode_list {
-          id
-          title
-          episode_number
-          video
-        }
         type
-        episodes
+        Episodes {
+          id
+        }
         images
         title
         synopsis

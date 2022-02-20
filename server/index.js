@@ -8,6 +8,10 @@ db.sequelize
   .then(() => console.log("Database connected..."))
   .catch((err) => console.log("Error: " + err));
 
+db.Anime.hasMany(db.Episode, {
+  foreignKey: "anime_id",
+});
+
 const typeDefs = require("./app/grapql/typedefs");
 const resolvers = require("./app/grapql/resolvers");
 server(typeDefs, resolvers);
