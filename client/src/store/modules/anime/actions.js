@@ -10,7 +10,7 @@ const actions = {
     if (errors) {
       throw errors;
     }
-    commit("setAnimeList", data.animeList);
+    commit("setAnimeList", data.anime);
     console.log("GET ANIME LIST ACTION", data);
   },
   getAnimeListSearched: async ({ commit }, payload) => {
@@ -23,7 +23,7 @@ const actions = {
       throw errors;
     }
 
-    commit("setAnimeListSearched", data.animeList);
+    commit("setAnimeListSearched", data.anime);
     console.log(data);
   },
 };

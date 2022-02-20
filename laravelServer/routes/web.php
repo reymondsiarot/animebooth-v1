@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Anime;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,5 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+    $anime = Anime::where("id",2)->first();
+    dd($anime);
     return view('welcome');
 });

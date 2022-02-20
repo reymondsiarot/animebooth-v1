@@ -1,0 +1,36 @@
+type Anime {
+    id: ID!
+    uploaded_by: User @belongsTo
+    mal_id: Int
+    anime_link: String
+    url: String
+    images: String
+    trailer: String
+    title: String
+    title_english: String
+    title_japanese: String
+    title_synonyms: String
+    type: String
+    source: String
+    episodes: Int
+    airing: Boolean
+    aired: String
+    duration: String
+    rating: String
+    score: Float
+    scored_by: Int
+    rank: Int
+    popularity: Int
+    members: Int
+    favorites: Int
+    synopsis: String
+    background: String
+    premiered: String
+    broadcast: String
+    related: String
+    producers: String
+    licensors: String
+    studios: String
+
+    genres: [Genre] @hasMany
+}

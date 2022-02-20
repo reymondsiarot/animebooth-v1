@@ -1,0 +1,12 @@
+scalar DateTime
+    @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTime")
+
+type Query {
+    user: [User] @all
+    anime(search: String @search): [Anime] @paginate
+    genres: [Genre] @all
+}
+
+#import user.graphql
+#import anime.graphql
+#import genre.graphql

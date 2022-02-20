@@ -12,7 +12,7 @@
         <div>
           <div class="tw-grid tw-grid-cols-2  sm:tw-grid-cols-3 md:tw-grid-cols-4 xl:tw-grid-cols-5  tw-gap-2">
 
-            <AnimeBox v-for="anime in animeList.rows" :key="anime.id" :anime="anime"></AnimeBox>
+            <AnimeBox v-for="anime in animeList.data" :key="anime.id" :anime="anime"></AnimeBox>
 
           </div>
           <div class="text-center">
@@ -49,6 +49,7 @@ export default {
   },
   async mounted() {
     await this.initAnimeList();
+    console.log(this.animeList)
   },
   watch: {
     "$route.query.q": async function (val) {
@@ -83,8 +84,8 @@ export default {
       await this.getAnimeList({
         genre: this.genre,
         search: this.search,
+        first: limit,
         page: this.page,
-        limit,
       });
     },
   },

@@ -59,11 +59,14 @@ export default {
   props: ["anime"],
   computed: {
     genres() {
-      if (this.anime.genre_list) {
-        let anime = this.anime.genre_list;
+      if (this.anime.genres) {
+        let anime = this.anime.genres;
         return anime.map((genre) => genre.name);
       }
     },
+  },
+  mounted() {
+    console.log("ANI ", this.anime);
   },
   methods: {
     gotoGenre(genre) {

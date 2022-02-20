@@ -1,37 +1,29 @@
 import gql from "graphql-tag";
 
 export default gql`
-  query Anime(
-    $page: Int
-    $search: String
-    $genre: String
-    $limit: Int
-    $is_search: Boolean
-  ) {
-    animeList(
-      page: $page
-      search: $search
-      genre: $genre
-      limit: $limit
-      is_search: $is_search
-    ) {
-      count
-      rows {
+  query Anime($first: Int!, $page: Int, $search: String) {
+    anime(first: $first, page: $page, search: $search) {
+      data {
         id
         mal_id
-        anime_link
-        type
-        Episodes {
-          id
-        }
-        images
         title
+        episodes
         synopsis
-        score
-        duration
-        genre_list {
+        images
+        type
+        genres {
+          id
+          mal_id
           name
         }
+      }
+      paginatorInfo {
+        count
+        currentPage
+        firstItem
+        lastItem
+        perPage
+        hasMorePages
       }
     }
   }

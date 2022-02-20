@@ -61,17 +61,18 @@ import { mapActions, mapState } from "vuex";
 export default {
   data: () => ({
     searchText: "",
+    limit: 5,
   }),
   computed: {
     ...mapState("anime", ["animeListSearched"]),
     animeList() {
-      return this.animeListSearched && this.animeListSearched.rows;
+      return this.animeListSearched && this.animeListSearched.data;
     },
     resultCount() {
       return (
         this.animeListSearched &&
-        this.animeListSearched.rows &&
-        this.animeListSearched.rows.length
+        this.animeListSearched.data &&
+        this.animeListSearched.data.length
       );
     },
   },
@@ -90,6 +91,7 @@ export default {
       this.timer = setTimeout(async () => {
         await this.getAnimeListSearched({
           search: this.searchText,
+          first: this.limit,
         });
       }, 500);
     },
