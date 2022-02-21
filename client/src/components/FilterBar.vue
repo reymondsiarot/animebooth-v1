@@ -8,7 +8,7 @@
             <template v-slot:activator="{ on, attrs }">
               <v-btn height="32" min-width="100" small color="white" class="catselected tw-text-base" outlined dark v-bind="attrs" v-on="on">
                 <div class="tw-flex tw-items-center tw-justify-between tw-w-full tw-text-xs">
-                  <span>{{ selectedGenre }}</span>
+                  <span>{{ getSelectedGenre }}</span>
                   <v-icon>keyboard_arrow_down</v-icon>
                 </div>
               </v-btn>
@@ -29,15 +29,20 @@
 </template>
 
 <script>
-import GQLGenre from "../graphql/genres.js";
+import { mapState } from "vuex";
 export default {
-  apollo: {
-    genres: GQLGenre,
-  },
   data: () => ({
     selectedGenre: "All",
-    genres: [],
   }),
+  computed: {
+    ...mapState("anime", ["genres"]),
+    getSelectedGenre() {
+      const genre = this.genres.find(
+        (genre) => genre.name == this.$route.query.genre
+      );
+      return (genre && genre.name) || "All";
+    },
+  },
   methods: {
     setCategory(cat) {
       this.selectedGenre = cat;

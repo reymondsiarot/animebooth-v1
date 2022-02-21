@@ -4,8 +4,10 @@ const mutations = {
   },
   setAnimeListSearched(state, payload) {
     state.animeListSearched = payload;
-  }
-  
+  },
+  setGenres(state, payload) {
+    state.genres = payload;
+  },
 };
 
 export default mutations;

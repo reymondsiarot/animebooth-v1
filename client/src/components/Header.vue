@@ -19,7 +19,9 @@
         <template v-slot:activator="{ on, attrs }">
           <div class="tw-flex tw-justify-end tw-items-center tw-space-x-3">
             <v-progress-circular v-if="$apollo.loading" indeterminate color="#BD203E"></v-progress-circular>
+            <form @submit.prevent="submitSearch" >
             <v-text-field v-model="searchText" hide-details="true" placeholder="Search Anime..." filled rounded dense v-bind="attrs" v-on="on"></v-text-field>
+            </form>
             <v-btn class="tw-h-full" rounded color="#BD203E">Suggest</v-btn>
           </div>
         </template>
@@ -71,13 +73,16 @@ export default {
     resultCount() {
       return (
         this.animeListSearched &&
-        this.animeListSearched.data &&
-        this.animeListSearched.data.length
+        this.animeListSearched.rows &&
+        this.animeListSearched.rows.length
       );
     },
   },
   methods: {
     ...mapActions("anime", ["getAnimeListSearched"]),
+    submitSearch() {
+      this.$router.push(`/animelist?q=${this.searchText}`)
+    },
   },
   watch: {
     searchText() {

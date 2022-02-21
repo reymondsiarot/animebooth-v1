@@ -67,9 +67,6 @@ export default {
       } catch (er) {}
     },
   },
-  mounted() {
-    console.log("ANI ", this.anime);
-  },
   methods: {
     gotoGenre(genre) {
       this.$router.push({ path: `/animelist?genre=${genre}` }, () =>

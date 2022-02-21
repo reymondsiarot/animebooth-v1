@@ -17,16 +17,18 @@ module.exports = {
           name: genre,
         },
       });
-      const genreMal_id = filteredGenre && (filteredGenre.mal_id || null);
+      const genreMal_id = filteredGenre && (filteredGenre.name || null);
 
       const fa = await AnimeRepository.model.findAll({
         where: {
+          [sequelize.Op.or]: genreMal_id
+            ? sequelize.literal(
+                `JSON_UNQUOTE(JSON_EXTRACT(genres,"$[*].name")) like '%${genreMal_id}%'`
+              )
+            : sequelize.literal(`1`),
           title: {
             [sequelize.Op.like]: `%${search ? search : ""}%`,
           },
-          [sequelize.Op.or]: genreMal_id
-            ? sequelize.literal(`JSON_CONTAINS(genres, ${genreMal_id})`)
-            : sequelize.literal(`1`),
         },
         offset: (page - 1) * limit,
         limit: limit,

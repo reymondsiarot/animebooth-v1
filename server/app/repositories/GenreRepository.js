@@ -14,19 +14,5 @@ class GenreRepository extends BaseRepository {
       return er;
     }
   };
-  fetchGenres = async () => {
-    try {
-      //https://api.jikan.moe/v4/genres/anime
-      const data = await this.fetchAPI("/genres/anime");
-      if (data.data) {
-        let created = await this.bulkCreate(data.data);
-        return created;
-      }
-
-      return null;
-    } catch (er) {
-      return er;
-    }
-  };
 }
 module.exports = new GenreRepository(Genre);

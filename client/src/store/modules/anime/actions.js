@@ -2,7 +2,7 @@ import GQLanime from "../../../graphql/anime.js";
 import apolloProvider from "../../../plugins/apollo";
 const apolloQuery = apolloProvider.defaultClient;
 const actions = {
-  getAnimeList: async ({ commit }, payload) => {
+  getAnimeList: async ({ commit, state }, payload) => {
     const { data, errors } = await apolloQuery.query({
       query: GQLanime,
       variables: { ...payload, is_search: false },
@@ -11,7 +11,8 @@ const actions = {
       throw errors;
     }
     commit("setAnimeList", data.animeList);
-    console.log("GET ANIME LIST ACTION", data);
+    commit("setGenres", data.genres);
+    console.log("GET ANIME LIST ACTION", data, state.genres);
   },
   getAnimeListSearched: async ({ commit }, payload) => {
     const { data, errors } = await apolloQuery.query({

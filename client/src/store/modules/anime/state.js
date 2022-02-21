@@ -1,5 +1,6 @@
 const state = {
   animeList: [],
-  animeListSearched:[]
+  animeListSearched: [],
+  genres: [],
 };
 export default state;

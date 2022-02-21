@@ -1,10 +1,17 @@
 import gql from "graphql-tag";
 
 export default gql`
-  query Anime($page: Int, $limit: Int, $is_search: Boolean, $genre: String) {
+  query Anime(
+    $page: Int
+    $limit: Int
+    $search: String
+    $is_search: Boolean
+    $genre: String
+  ) {
     animeList(
       page: $page
       limit: $limit
+      search: $search
       is_search: $is_search
       genre: $genre
     ) {
@@ -20,6 +27,9 @@ export default gql`
         genres
       }
       count
+    }
+    genres {
+      name
     }
   }
 `;
