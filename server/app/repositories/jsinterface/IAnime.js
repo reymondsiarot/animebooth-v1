@@ -30,6 +30,6 @@ module.exports = (data) => {
     producers: data.producers ? data.producers : [],
     licensors: data.licensors ? data.licensors : [],
     studios: data.studios ? data.studios : [],
-    genres: data.genres ? data.genres.map((genre) => genre.mal_id) : [],
+    genres: data.genres ? data.genres : [],
   };
 };

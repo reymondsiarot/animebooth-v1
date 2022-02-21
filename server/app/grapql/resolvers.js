@@ -51,14 +51,7 @@ module.exports = {
       return await GenreRepository.list();
     },
   },
-  //ANIME QUERY MODEL
-  Anime: {
-    genre_list: async (parent) => {
-      return await GenreRepository.model.findAll({
-        where: { mal_id: JSON.parse(parent.genres) },
-      });
-    },
-  },
+
   //EPISODE QUERY MODEL
   Episode: {
     anime: async (parent) => {

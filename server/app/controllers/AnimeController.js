@@ -14,15 +14,6 @@ class AnimeController {
     let data = await AnimeRepository.fetchAnime(req.params.id);
     res.json(data);
   };
-  animeHello = async (req, res) => {
-    res.send(
-      await AnimeRepository.model.findOne({
-        where: {
-          id: req.params.id || 1,
-        },
-      })
-    );
-  };
   animeGenres = async (req, res) => {
     let data = await GenreRepository.fetchGenres();
     res.send(data);

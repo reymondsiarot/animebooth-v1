@@ -1,5 +1,6 @@
 const { jikanAPI } = require("../http/index");
 const { v4: uuidv4 } = require("uuid");
+const { Anime, Genre, Episode } = require("../../database/models");
 
 class BaseRepository {
   constructor(model) {
@@ -33,6 +34,10 @@ class BaseRepository {
         anime_link: values.title.split(" ").join("_").toLowerCase(),
       });
       animeCreated.anime_link += "-" + animeCreated.id;
+      await Genre.bulkCreate(animeCreated.genres, {
+        ignoreDuplicates: true,
+      });
+
       animeCreated.save();
       return animeCreated;
     } catch (er) {

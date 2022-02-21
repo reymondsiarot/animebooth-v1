@@ -59,10 +59,12 @@ export default {
   props: ["anime"],
   computed: {
     genres() {
-      if (this.anime.genres) {
-        let anime = this.anime.genres;
-        return anime.map((genre) => genre.name);
-      }
+      try {
+        if (this.anime) {
+          let anime = JSON.parse(this.anime.genres);
+          return anime.map((genre) => genre.name);
+        }
+      } catch (er) {}
     },
   },
   mounted() {

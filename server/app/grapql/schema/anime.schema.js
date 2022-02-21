@@ -33,7 +33,6 @@ module.exports = `
       licensors: String,
       studios: String,
       genres: String,
-      genre_list: [Genre],
       createdAt: String,
       updatedAt: String
 }

@@ -66,7 +66,7 @@ export default {
   computed: {
     ...mapState("anime", ["animeListSearched"]),
     animeList() {
-      return this.animeListSearched && this.animeListSearched.data;
+      return this.animeListSearched && this.animeListSearched.rows;
     },
     resultCount() {
       return (
@@ -91,7 +91,7 @@ export default {
       this.timer = setTimeout(async () => {
         await this.getAnimeListSearched({
           search: this.searchText,
-          first: this.limit,
+          limit: this.limit,
         });
       }, 500);
     },
