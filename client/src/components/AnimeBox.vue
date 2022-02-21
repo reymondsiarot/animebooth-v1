@@ -13,7 +13,7 @@
 
             <div class="play-anime">
               <div class="play-anime-container">
-                <v-icon size="50">play_arrow</v-icon>
+                <v-icon size="50">mdi-play-arrow</v-icon>
               </div>
             </div>
 

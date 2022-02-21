@@ -19,10 +19,11 @@
         <template v-slot:activator="{ on, attrs }">
           <div class="tw-flex tw-justify-end tw-items-center tw-space-x-3">
             <v-progress-circular v-if="$apollo.loading" indeterminate color="#BD203E"></v-progress-circular>
-            <form @submit.prevent="submitSearch" >
-            <v-text-field v-model="searchText" hide-details="true" placeholder="Search Anime..." filled rounded dense v-bind="attrs" v-on="on"></v-text-field>
+            <form @submit.prevent="submitSearch">
+              <v-text-field v-model="searchText" hide-details="true" placeholder="Search Anime..." filled rounded dense v-bind="attrs" v-on="on"></v-text-field>
             </form>
-            <v-btn class="tw-h-full" rounded color="#BD203E">Suggest</v-btn>
+            <AuthModal></AuthModal>
+
           </div>
         </template>
         <div class="tw-my-2 tw-bg-[#121212] tw-w-full tw-h-full top-anime tw-shadow-lg tw-border-2 tw-border-[#BD203E] tw-px-2 tw-py-2" v-show="searchText">
@@ -60,7 +61,11 @@
 
 <script>
 import { mapActions, mapState } from "vuex";
+import AuthModal from './modal/AuthModal.vue'
 export default {
+  components:{
+    AuthModal
+  },
   data: () => ({
     searchText: "",
     limit: 5,
@@ -81,7 +86,7 @@ export default {
   methods: {
     ...mapActions("anime", ["getAnimeListSearched"]),
     submitSearch() {
-      this.$router.push(`/animelist?q=${this.searchText}`)
+      this.$router.push(`/animelist?q=${this.searchText}`);
     },
   },
   watch: {

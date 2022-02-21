@@ -57,6 +57,19 @@ class BaseRepository {
     );
     return this.model.bulkCreate(ndata, { ignoreDuplicates: true });
   };
+
+  validate = (condition, message) => {
+    if (condition) {
+      return {
+        success: false,
+        message: message,
+      };
+    }
+    return {
+      success: true,
+      message: "",
+    };
+  };
 }
 
 module.exports = BaseRepository;

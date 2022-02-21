@@ -9,7 +9,7 @@
               <v-btn height="32" min-width="100" small color="white" class="catselected tw-text-base" outlined dark v-bind="attrs" v-on="on">
                 <div class="tw-flex tw-items-center tw-justify-between tw-w-full tw-text-xs">
                   <span>{{ getSelectedGenre }}</span>
-                  <v-icon>keyboard_arrow_down</v-icon>
+                  <v-icon>keyboard-arrow-down</v-icon>
                 </div>
               </v-btn>
             </template>
