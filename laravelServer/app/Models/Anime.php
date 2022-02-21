@@ -13,12 +13,19 @@ class Anime extends Model
     use HasFactory,HasJsonRelationships,Searchable;
     protected $casts = [
         'genres' => 'json',
-     ];
+    ];
     public function uploaded_by(){
         return $this->belongsTo(User::class, "uploaded_by");
     }
     public function genres(){
         return $this->belongsToJson(Genre::class, "genres");
     }
+    public function toSearchableArray() : array
+    {
+        $array = $this->toArray();
 
+        // Customize the data array...
+        $array['hello'] = ['hello'=>"awd"];
+        return $array;
+    }
 }

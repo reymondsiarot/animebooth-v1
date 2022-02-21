@@ -31,6 +31,5 @@ type Anime {
     producers: String
     licensors: String
     studios: String
-
     genres: [Genre] @hasMany
 }

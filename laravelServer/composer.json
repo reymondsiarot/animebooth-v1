@@ -12,6 +12,7 @@
         "laravel/framework": "^8.75",
         "laravel/sanctum": "^2.11",
         "laravel/scout": "^9.4",
+        "laravel/telescope": "^4.7",
         "laravel/tinker": "^2.5",
         "meilisearch/meilisearch-php": "^0.22.0",
         "mll-lab/laravel-graphql-playground": "^2.6",

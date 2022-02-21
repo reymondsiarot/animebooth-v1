@@ -16,6 +16,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     $anime = Anime::where("id",2)->first();
-    dd($anime);
-    return view('welcome');
+
+    return response()->json($anime);
 });
