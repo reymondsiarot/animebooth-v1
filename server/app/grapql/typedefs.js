@@ -15,6 +15,7 @@ const typeDefs = gql`
   }
 
   type Query {
+    topAnime: AnimeList
     animeList(
       page: Int
       search: String

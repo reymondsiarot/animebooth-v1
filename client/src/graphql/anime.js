@@ -24,12 +24,29 @@ export default gql`
         title_english
         title_synonyms
         synopsis
+        type
+        score
         genres
       }
       count
     }
     genres {
       name
+    }
+    topAnime {
+      rows {
+        id
+        mal_id
+        anime_link
+        images
+        title
+        title_english
+        title_synonyms
+        synopsis
+        type
+        score
+        genres
+      }
     }
   }
 `;

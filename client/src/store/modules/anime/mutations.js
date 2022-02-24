@@ -8,6 +8,9 @@ const mutations = {
   setGenres(state, payload) {
     state.genres = payload;
   },
+  setTopAnime(state, payload) {
+    state.topAnime = payload;
+  },
 };
 
 export default mutations;

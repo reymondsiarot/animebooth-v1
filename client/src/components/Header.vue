@@ -15,7 +15,7 @@
         </v-bottom-navigation>
       </div>
 
-      <v-menu :max-width="366" :open-delay="500" offset-y transition="scale-transition" :value="animeList">
+      <v-menu :max-width="366" :open-delay="500" offset-y transition="scale-transition" :value="searchText">
         <template v-slot:activator="{ on, attrs }">
           <div class="tw-flex tw-justify-end tw-items-center tw-space-x-3">
             <v-progress-circular v-if="$apollo.loading" indeterminate color="#BD203E"></v-progress-circular>
@@ -61,10 +61,10 @@
 
 <script>
 import { mapActions, mapState } from "vuex";
-import AuthModal from './modal/AuthModal.vue'
+import AuthModal from "./modal/AuthModal.vue";
 export default {
-  components:{
-    AuthModal
+  components: {
+    AuthModal,
   },
   data: () => ({
     searchText: "",
@@ -73,7 +73,9 @@ export default {
   computed: {
     ...mapState("anime", ["animeListSearched"]),
     animeList() {
-      return this.animeListSearched && this.animeListSearched.rows;
+      return (
+        this.animeListSearched && this.searchText && this.animeListSearched.rows
+      );
     },
     resultCount() {
       return (

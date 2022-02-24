@@ -12,6 +12,7 @@ const actions = {
     }
     commit("setAnimeList", data.animeList);
     commit("setGenres", data.genres);
+    commit("setTopAnime", data.topAnime);
     console.log("GET ANIME LIST ACTION", data, state.genres);
   },
   getAnimeListSearched: async ({ commit }, payload) => {

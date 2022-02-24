@@ -6,14 +6,14 @@
 
           <div class="image-container  tw-overflow-hidden" v-bind="attrs" v-on="on">
             <div class="anime-type">
-              <div v-if="anime.type == 'TV'" class="anime-type-item"><span>Ep: {{` ${anime.episodes}/10`}}</span></div>
+              <div v-if="anime.type == 'TV'" class="anime-type-item"><span>Ep: {{` ${10}/10`}}</span></div>
               <div v-if="anime.type == 'Movie'" class="anime-type-item"><span>Movie</span></div>
               <div v-if="anime.type == 'OVA'" class="anime-type-item"><span>OVA</span></div>
             </div>
 
             <div class="play-anime">
               <div class="play-anime-container">
-                <v-icon size="50">mdi-play-arrow</v-icon>
+                <v-icon size="50">mdi-play</v-icon>
               </div>
             </div>
 
@@ -44,7 +44,7 @@
           </div>
           <div class="tw-w-full">
             <a @click="watchNow(anime)" class="watch-link">
-              <v-icon size="30" class="tw-w-5 tw-h-5 tw-rounded-md tw--ml-2">play_arrow</v-icon>
+              <v-icon size="30" class="tw-w-5 tw-h-5 tw-rounded-md tw--ml-2">mdi-play</v-icon>
               <span class="tw-font-semibold tw-text-white"> WATCH NOW</span>
             </a>
           </div>
@@ -69,9 +69,7 @@ export default {
   },
   methods: {
     gotoGenre(genre) {
-      this.$router.push({ path: `/animelist?genre=${genre}` }, () =>
-        this.$router.app.refresh()
-      );
+      this.$router.push({ path: `/animelist?genre=${genre}` });
     },
     watchNow(anime) {
       this.$router.push({

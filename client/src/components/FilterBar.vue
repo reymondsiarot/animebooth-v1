@@ -9,7 +9,7 @@
               <v-btn height="32" min-width="100" small color="white" class="catselected tw-text-base" outlined dark v-bind="attrs" v-on="on">
                 <div class="tw-flex tw-items-center tw-justify-between tw-w-full tw-text-xs">
                   <span>{{ getSelectedGenre }}</span>
-                  <v-icon>keyboard-arrow-down</v-icon>
+                  <v-icon>mdi-chevron-down</v-icon>
                 </div>
               </v-btn>
             </template>
@@ -45,6 +45,7 @@ export default {
   },
   methods: {
     setCategory(cat) {
+      if (this.selectedGenre == cat) return;
       this.selectedGenre = cat;
       if (this.selectedGenre.toLowerCase() == "all") {
         this.$router.push({

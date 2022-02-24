@@ -6,6 +6,12 @@ const { Episode } = require("../../database/models");
 module.exports = {
   //MAIN QUERY
   Query: {
+    topAnime: async () => {
+      const data = await AnimeRepository.model.findAll({
+        limit: 10,
+      });
+      return {rows: data ,count: 10}
+    },
     animeList: async (parent, args, context, info) => {
       const page = args.page || 1;
       const search = args.search;

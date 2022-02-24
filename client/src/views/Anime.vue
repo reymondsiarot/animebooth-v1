@@ -20,7 +20,7 @@
         </div>
       </div>
       <div class="md:tw-col-span-2 tw-w-full">
-
+        <TopAnime />
       </div>
     </div>
 
@@ -32,11 +32,13 @@ import { mapState, mapMutations, mapActions } from "vuex";
 import AnimeBox from "../components/AnimeBox.vue";
 import NavBreadCrumbs from "../components/NavBreadCrumbs.vue";
 import FilterBar from "../components/FilterBar.vue";
+import TopAnime from "../components/TopAnime.vue";
 export default {
   components: {
     NavBreadCrumbs,
     FilterBar,
     AnimeBox,
+    TopAnime,
   },
   data() {
     return {

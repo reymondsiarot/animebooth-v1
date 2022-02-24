@@ -5,7 +5,6 @@ import store from "./store";
 import VueCookies from "vue-cookies-reactive";
 import vuetify from "./plugins/vuetify";
 import "./assets/css/tailwind.css";
-// import "material-design-icons-iconfont/dist/material-design-icons.css";
 import apolloProvider from "./plugins/apollo";
 import VueApollo from "vue-apollo";
 import AppApollo from "./plugins/util/appApollo";
