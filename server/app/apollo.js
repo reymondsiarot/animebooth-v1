@@ -2,12 +2,20 @@ const { ApolloServer } = require("apollo-server-express");
 const { ApolloServerPluginDrainHttpServer } = require("apollo-server-core");
 const express = require("express");
 const http = require("http");
-var compression = require("compression");
+const compression = require("compression");
 const bodyParser = require("body-parser");
+const cors = require("cors");
+const cookieParser = require("cookie-parser");
 
 module.exports = async function startApolloServer(typeDefs, resolvers) {
   const app = express();
-
+  app.use(cookieParser());
+  app.use(
+    cors({
+      origin: ["http://localhost:8080"],
+      credentials: true,
+    })
+  );
   app.use(bodyParser.json());
   app.use(compression());
   app.use(require("../routes/routes"));

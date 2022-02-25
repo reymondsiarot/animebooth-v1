@@ -1,3 +1,4 @@
+const { createDiffieHellman } = require("crypto");
 const { User } = require("../../database/models");
 const BaseRepository = require("./BaseRepository");
 class AuthRepository extends BaseRepository {
@@ -13,25 +14,27 @@ class AuthRepository extends BaseRepository {
       );
       if (!passwordValidation.success) return passwordValidation;
       const passwordValidation1 = this.validate(
-        data.password !== data.cpassword && !!data.cpassword,
+        data.password !== data.cpassword || !data.cpassword,
         "Password not match"
       );
       if (!passwordValidation1.success) return passwordValidation1;
 
-      const usernameValidation = this.validate(
-        username.search(/[^a-zA-Z0-9_]/g) !== -1,
-        "Username is not valid"
-      );
-      if (!usernameValidation.success) return usernameValidation;
       const emailValidation = this.validate(
-        !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email),
+        !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(data.email),
         "Email is not valid"
       );
-      console.log("AWd");
       if (!emailValidation.success) return emailValidation;
 
-      let created = await this.model.create(data);
-      return created;
+      const user = await User.findOne({ where: { email: data.email } });
+      if (user) return { success: false, message: "Email already exists" };
+
+      const created = await this.model.create(data, {
+        attributes: {
+          exclude: ["password"],
+        },
+      });
+
+      return { success: !!created, data: created };
     } catch (er) {
       return er;
     }

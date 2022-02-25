@@ -8,12 +8,15 @@ import "./assets/css/tailwind.css";
 import apolloProvider from "./plugins/apollo";
 import VueApollo from "vue-apollo";
 import AppApollo from "./plugins/util/appApollo";
+import userApi from "./api/userApi";
 
 Vue.use(VueApollo);
 Vue.use(AppApollo);
 Vue.use(VueCookies);
 
-// Vue.config.productionTip = false;
+Vue.prototype.$userApi = userApi;
+
+Vue.config.productionTip = false;
 new Vue({
   router,
   vuetify,
