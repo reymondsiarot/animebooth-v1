@@ -1,26 +1,26 @@
 import Vue from "vue";
 import App from "./App.vue";
-import router from "./router";
 import store from "./store";
-import VueCookies from "vue-cookies-reactive";
+import router from "./router";
+import VueCookies from "vue-cookies";
 import vuetify from "./plugins/vuetify";
 import "./assets/css/tailwind.css";
 import apolloProvider from "./plugins/apollo";
 import VueApollo from "vue-apollo";
 import AppApollo from "./plugins/util/appApollo";
 import userApi from "./api/userApi";
-
+import userData from "./plugins/util/userData";
+Vue.prototype.$userApi = userApi;
 Vue.use(VueApollo);
 Vue.use(AppApollo);
 Vue.use(VueCookies);
-
-Vue.prototype.$userApi = userApi;
+Vue.use(userData, userApi);
 
 Vue.config.productionTip = false;
 new Vue({
   router,
-  vuetify,
   store,
+  vuetify,
   provide: apolloProvider.provide(),
   render: (h) => h(App),
 }).$mount("#app");

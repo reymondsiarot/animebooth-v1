@@ -6,7 +6,7 @@ const compression = require("compression");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
-
+const redis = require("./redis");
 module.exports = async function startApolloServer(typeDefs, resolvers) {
   const app = express();
   app.use(cookieParser());
@@ -18,6 +18,7 @@ module.exports = async function startApolloServer(typeDefs, resolvers) {
   );
   app.use(bodyParser.json());
   app.use(compression());
+  app.use(redis);
   app.use(require("../routes/routes"));
 
   const httpServer = http.createServer(app);

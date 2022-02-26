@@ -2,6 +2,7 @@ const server = require("./app/app.js");
 const db = require("./database/models");
 // make bluebird default Promise
 Promise = require("bluebird"); // eslint-disable-line no-global-assign
+
 // Test DB
 db.sequelize
   .authenticate()

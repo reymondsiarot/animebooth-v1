@@ -11,6 +11,8 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   }
+  //create password compare function
+
   User.init(
     {
       roles: DataTypes.JSON,
@@ -24,5 +26,9 @@ module.exports = (sequelize, DataTypes) => {
       modelName: "User",
     }
   );
+
+  User.prototype.comparePassword = function (password) {
+    return password === this.password;
+  };
   return User;
 };

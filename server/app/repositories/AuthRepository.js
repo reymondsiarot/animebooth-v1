@@ -1,12 +1,40 @@
 const { createDiffieHellman } = require("crypto");
 const { User } = require("../../database/models");
+const authLogin = require("../../helpers/authLogin");
 const BaseRepository = require("./BaseRepository");
 class AuthRepository extends BaseRepository {
   constructor(model) {
     super(model);
   }
+  login = async (email, password, res, req) => {
+    try {
+      if (!email) return { success: false, message: "Please enter email" };
+      if (!password)
+        return { success: false, message: "Please enter password" };
+      const user = await this.model.findOne({ where: { email } });
 
-  register = async (data) => {
+      if (user) {
+        const match = await user.comparePassword(password);
+        if (match) {
+          await authLogin(
+            {
+              id: user.id,
+              email: user.email,
+            },
+            "15",
+            res,
+            req
+          );
+          return { success: true, message: "Login success", data: user };
+        }
+      }
+      return { success: false, message: "Username or password is incorrect" };
+    } catch (er) {
+      return { success: false, message: "error" };
+    }
+  };
+
+  register = async (data, res, req) => {
     try {
       const passwordValidation = this.validate(
         !data.password,
@@ -33,7 +61,17 @@ class AuthRepository extends BaseRepository {
           exclude: ["password"],
         },
       });
-
+      if (!!created) {
+        await authLogin(
+          {
+            id: created.id,
+            email: created.email,
+          },
+          "15",
+          res,
+          req
+        );
+      }
       return { success: !!created, data: created };
     } catch (er) {
       return er;

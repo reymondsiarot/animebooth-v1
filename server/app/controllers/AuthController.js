@@ -1,25 +1,25 @@
-const authLogin = require("../../helpers/authLogin");
 const AuthRepository = require("../repositories/AuthRepository");
 
 class AuthController {
   admin = async (req, res) => {
     res.send("success");
   };
-  login = async (req, res) => {};
-  register = async (req, res) => {
-    const response = await AuthRepository.register(req.body);
-    if (response.success) {
-      await authLogin(
-        {
-          id: response.data.id,
-          email: response.data.email,
-        },
-        "10",
-        res
-      );
-    }
-
+  login = async (req, res) => {
+    const { email, password } = req.body;
+    const response = await AuthRepository.login(email, password, res, req);
     res.send(response);
+  };
+  register = async (req, res) => {
+    const response = await AuthRepository.register(req.body, res, req);
+    res.send(response);
+  };
+  logout = async (req, res) => {
+    res.clearCookie("_token");
+    res.clearCookie("user");
+    res.send({
+      success: true,
+      message: "Logout success",
+    });
   };
 }
 

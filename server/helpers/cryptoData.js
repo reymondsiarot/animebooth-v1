@@ -1,9 +1,18 @@
 const crypto = require("crypto");
 const algorithm = "aes-256-cbc";
-const initVector = crypto.randomBytes(16);
-const Securitykey = crypto.randomBytes(32);
+const initVector = crypto
+  .createHash("sha256")
+  .update(String("init-vector-key-secret"))
+  .digest("base64")
+  .substr(0, 16);
+const Securitykey = crypto
+  .createHash("sha256")
+  .update(String("security-key-secret"))
+  .digest("base64")
+  .substr(0, 32); // crypto.randomBytes(32);
+
 console.log("Securitykey", Securitykey.toString("hex"));
-console.log("initVector", initVector.toString("hex"));
+console.log("initVector", initVector);
 module.exports = {
   cryptoEncode: (data) => {
     const cipher = crypto.createCipheriv(algorithm, Securitykey, initVector);

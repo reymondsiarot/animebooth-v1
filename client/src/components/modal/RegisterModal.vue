@@ -26,16 +26,18 @@
               </v-row>
 
             </v-alert>
-            <v-text-field v-model="form.email" color="white" hide-details dense class="py-0 mb-4" filled label="Email" append-icon="mdi-account"></v-text-field>
-            <v-text-field v-model="form.password" color="white" hide-details dense class="py-0 mb-4" filled label="Password" :type="passShow ? 'text' : 'password'" @click:append="passShow = !passShow" :append-icon="passShow ? 'mdi-eye' : 'mdi-eye-off'"></v-text-field>
-            <v-text-field v-model="form.cpassword" color="white" hide-details dense class="py-0 mb-4" filled label="Confirm Password" :type="passShow1 ? 'text' : 'password'" @click:append="passShow1 = !passShow1" :append-icon="passShow1 ? 'mdi-eye' : 'mdi-eye-off'"></v-text-field>
-            <div class="tw-flex tw-justify-center tw-mb-4">
-              <vue-recaptcha @expired="errorCaptcha" @error="errorCaptcha" @verify="verifyCaptcha" ref="recaptcha" :sitekey="siteKey" />
-            </div>
+            <form @submit.prevent="register">
+              <v-text-field tabindex="1" v-model="form.email" color="white" hide-details dense class="py-0 mb-4" filled label="Email" append-icon="mdi-account"></v-text-field>
+              <v-text-field tabindex="2" v-model="form.password" color="white" hide-details dense class="py-0 mb-4" filled label="Password" :type="passShow ? 'text' : 'password'" @click:append="passShow = !passShow" :append-icon="passShow ? 'mdi-eye' : 'mdi-eye-off'"></v-text-field>
+              <v-text-field tabindex="3" v-model="form.cpassword" color="white" hide-details dense class="py-0 mb-4" filled label="Confirm Password" :type="passShow1 ? 'text' : 'password'" @click:append="passShow1 = !passShow1" :append-icon="passShow1 ? 'mdi-eye' : 'mdi-eye-off'"></v-text-field>
+              <div class="tw-flex tw-justify-center tw-mb-4">
+                <vue-recaptcha @expired="errorCaptcha" @error="errorCaptcha" @verify="verifyCaptcha" ref="recaptcha" :sitekey="siteKey" />
+              </div>
 
-            <v-btn class="tw-h-full tw-w-full tw-rounded-md" large rounded color="#BD203E" @click="register">
-              Register
-            </v-btn>
+              <v-btn class="tw-h-full tw-w-full tw-rounded-md" large rounded color="#BD203E" type="submit" tabindex="4">
+                Register
+              </v-btn>
+            </form>
             <div class="tw-my-4">
               <small>
                 Already have an account? <a href="#" @click="$emit('toLogin')">Login</a>
@@ -86,7 +88,7 @@ export default {
       const response = await this.userRegister(this.form);
       console.log(response);
       if (response.success) {
-        // return (location.href = "/");
+        return location.reload();
       }
       this.error.status = true;
       this.error.message = response.message;

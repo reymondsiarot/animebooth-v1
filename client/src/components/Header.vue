@@ -22,7 +22,24 @@
             <form @submit.prevent="submitSearch">
               <v-text-field v-model="searchText" hide-details="true" placeholder="Search Anime..." filled rounded dense v-bind="attrs" v-on="on"></v-text-field>
             </form>
-            <AuthModal></AuthModal>
+            <AuthModal v-if="!$auth.user"></AuthModal>
+            <div v-else>
+              <v-menu bottom offset-y left rounded="">
+                <template v-slot:activator="{ on, attrs }">
+                  <v-avatar color="#BD203E" size="36" v-bind="attrs" v-on="on">
+                    <span class="white--text text-h5"> {{$auth.user.email[0]}}</span>
+                  </v-avatar>
+
+                </template>
+
+                <v-list>
+                  <v-list-item>
+                    <v-list-item-title class="tw-cursor-pointer" @click="$auth.logout()">Logout</v-list-item-title>
+                  </v-list-item>
+                </v-list>
+              </v-menu>
+
+            </div>
 
           </div>
         </template>
