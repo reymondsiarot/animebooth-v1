@@ -1,5 +1,5 @@
 <template>
-  <div >
+  <div>
     <router-view></router-view>
   </div>
 </template>
@@ -24,6 +24,7 @@ export default {
       getAnimeByLink: {},
     };
   },
+
   watch: {
     getAnimeByLink() {
       if (!this.getAnimeByLink) this.$router.push("/animelist");

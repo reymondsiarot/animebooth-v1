@@ -43,4 +43,6 @@ Object.keys(db).forEach((modelName) => {
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
+db.User.belongsToMany(db.Roles, { through: db.UserRoles });
+
 module.exports = db;

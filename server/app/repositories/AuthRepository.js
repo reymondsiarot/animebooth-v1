@@ -2,6 +2,8 @@ const { createDiffieHellman } = require("crypto");
 const { User } = require("../../database/models");
 const authLogin = require("../../helpers/authLogin");
 const BaseRepository = require("./BaseRepository");
+const randomColor = require("randomcolor"); // import the script
+
 class AuthRepository extends BaseRepository {
   constructor(model) {
     super(model);
@@ -20,6 +22,7 @@ class AuthRepository extends BaseRepository {
             {
               id: user.id,
               email: user.email,
+              avatarColor: user.avatarColor,
             },
             "15",
             res,
@@ -56,16 +59,22 @@ class AuthRepository extends BaseRepository {
       const user = await User.findOne({ where: { email: data.email } });
       if (user) return { success: false, message: "Email already exists" };
 
-      const created = await this.model.create(data, {
-        attributes: {
-          exclude: ["password"],
-        },
+      const color = randomColor({
+        luminosity: "dark",
+        hue: "red",
       });
+      const created = await this.model.create(
+        { ...data, avatarColor: color },
+        {},
+        { include: ["roles"] }
+      );
+
       if (!!created) {
         await authLogin(
           {
             id: created.id,
             email: created.email,
+            avatarColor: created.avatarColor,
           },
           "15",
           res,

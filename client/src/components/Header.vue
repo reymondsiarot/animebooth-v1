@@ -23,20 +23,29 @@
               <v-text-field v-model="searchText" hide-details="true" placeholder="Search Anime..." filled rounded dense v-bind="attrs" v-on="on"></v-text-field>
             </form>
             <AuthModal v-if="!$auth.user"></AuthModal>
-            <div v-else>
-              <v-menu bottom offset-y left rounded="">
-                <template v-slot:activator="{ on, attrs }">
-                  <v-avatar color="#BD203E" size="36" v-bind="attrs" v-on="on">
+            <div v-else class="">
+              <v-menu bottom offset-y offset-x left rounded="" nudge-right="15">
+                <template v-slot:activator=" { on, attrs }">
+                  <v-avatar :color="$auth.user.avatarColor" size="36" v-bind="attrs" v-on="on">
                     <span class="white--text text-h5"> {{$auth.user.email[0]}}</span>
                   </v-avatar>
 
                 </template>
+                <div class="tw-bg-[#1E1E1E] tw-py-2 tw-mt-1 tw-rounded-tl-xl tw-rounded-b-xl">
+                  <div @click="gotoPage('admin')" class="tw-profile-menu">
+                    <v-icon small class="tw-mt-[2px]">mdi-shield-crown </v-icon><span> Admin Panel</span>
+                  </div>
 
-                <v-list>
-                  <v-list-item>
-                    <v-list-item-title class="tw-cursor-pointer" @click="$auth.logout()">Logout</v-list-item-title>
-                  </v-list-item>
-                </v-list>
+                  <div @click="gotoPage('manage')" class="tw-profile-menu">
+                    <v-icon small class="tw-mt-[2px]">mdi-cog-play </v-icon><span> Manage </span>
+                  </div>
+                  <div class="tw-profile-menu">
+                    <v-icon small class="tw-mt-[2px]">mdi-account </v-icon><span> Profile</span>
+                  </div>
+                  <div @click="$auth.logout()" class="tw-profile-menu">
+                    <v-icon small class="tw-mt-[2px]">mdi-logout </v-icon><span> Logout</span>
+                  </div>
+                </div>
               </v-menu>
 
             </div>
@@ -106,6 +115,9 @@ export default {
     ...mapActions("anime", ["getAnimeListSearched"]),
     submitSearch() {
       this.$router.push(`/animelist?q=${this.searchText}`);
+    },
+    gotoPage(page) {
+      this.$router.push(`/${page}`);
     },
   },
   watch: {

@@ -1,8 +1,21 @@
 const AuthRepository = require("../repositories/AuthRepository");
-
+const { Roles } = require("../../database/models");
 class AuthController {
   admin = async (req, res) => {
-    res.send("success");
+    try {
+      const userData = JSON.parse(req.user);
+      const user = await AuthRepository.model.create(
+        {},
+        {
+          include: ["Roles"],
+        }
+      );
+      console.log("user", user);
+      res.send(user);
+    } catch (er) {
+      console.log(er);
+      res.send(er);
+    }
   };
   login = async (req, res) => {
     const { email, password } = req.body;

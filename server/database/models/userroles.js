@@ -1,7 +1,7 @@
 "use strict";
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
-  class User extends Model {
+  class UserRoles extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -11,24 +11,15 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   }
-  //create password compare function
-
-  User.init(
+  UserRoles.init(
     {
-      avatarColor: DataTypes.STRING,
-      name: DataTypes.STRING,
-      email: DataTypes.STRING,
-      password: DataTypes.STRING,
-      banned_until: DataTypes.DATE,
+      UserId: DataTypes.INTEGER,
+      RoleId: DataTypes.INTEGER,
     },
     {
       sequelize,
-      modelName: "User",
+      modelName: "UserRoles",
     }
   );
-
-  User.prototype.comparePassword = function (password) {
-    return password === this.password;
-  };
-  return User;
+  return UserRoles;
 };

@@ -8,6 +8,7 @@ const Home = () => import("../views/Home.vue");
 const AnimeList = () => import("../views/Anime.vue");
 const WatchAnime = () => import("../views/watch/Watch.vue");
 const Episode = () => import("../views/watch/Episode.vue");
+const Admin = () => import("../views/admin/Admin.vue");
 
 const routes = [
   {
@@ -30,6 +31,11 @@ const routes = [
         component: Episode,
       },
     ],
+  },
+  {
+    path: "/admin",
+    name: "admin",
+    component: Admin,
   },
 ];
 

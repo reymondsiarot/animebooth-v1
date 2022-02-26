@@ -10,7 +10,11 @@ import VueApollo from "vue-apollo";
 import AppApollo from "./plugins/util/appApollo";
 import userApi from "./api/userApi";
 import userData from "./plugins/util/userData";
+import WebTorrent from "webtorrent";
+const webTorrent = new WebTorrent();
+
 Vue.prototype.$userApi = userApi;
+Vue.prototype.$webTorrent = webTorrent;
 Vue.use(VueApollo);
 Vue.use(AppApollo);
 Vue.use(VueCookies);

@@ -23,6 +23,8 @@ module.exports = async (req, res, next) => {
       const decoded = await jwt.verify(userToken.token, accessKey);
 
       if (decoded) {
+        // set req.user to decoded data
+        req.user = JSON.stringify(decoded.data);
         return next();
       }
     }
@@ -38,10 +40,6 @@ module.exports = async (req, res, next) => {
           refreshAccessKey
         );
         if (decodedRefreshToken) {
-          console.log(
-            "GETTING REFRESH TOKEN FROM REDIS",
-            userToken.refreshToken
-          );
           // check if refresh token is still valid
           const redis = req.redis;
           const isValid = await redis.get(userToken.refreshToken);
@@ -57,17 +55,17 @@ module.exports = async (req, res, next) => {
                 id: user.id,
                 email: user.email,
               };
+              req.user = JSON.stringify(data);
               // generate new access token
               await authLogin(data, "15", res, req);
               await redis.del(userToken.refreshToken);
+              return next();
             }
-            return next();
+            await redis.del(userToken.refreshToken);
           }
         }
       }
     } catch (er) {}
-
-    console.log("EXP");
   }
   // remove cookie token
   res.clearCookie("_token");

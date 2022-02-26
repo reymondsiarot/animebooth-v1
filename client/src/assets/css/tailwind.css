@@ -66,4 +66,8 @@
     @apply tw-ml-2 tw-h-20 tw-overflow-hidden tw-col-span-2;
   }
   /* top anime end */
+
+  .tw-profile-menu {
+    @apply tw-text-white tw-px-7 tw-flex tw-space-x-3 tw-items-start tw-rounded-md tw-text-sm tw-py-2 tw-my-1 tw-cursor-pointer hover:tw-bg-gray-700;
+  }
 }
