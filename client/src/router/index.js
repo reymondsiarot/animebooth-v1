@@ -9,7 +9,9 @@ const AnimeList = () => import("../views/Anime.vue");
 const WatchAnime = () => import("../views/watch/Watch.vue");
 const Episode = () => import("../views/watch/Episode.vue");
 const Admin = () => import("../views/admin/Admin.vue");
-
+const Manage = () => import("../views/manage/Manage.vue");
+const ManageDashboard = () => import("../views/manage/subpages/Dashboard.vue");
+const ManageMyAnime = () => import("../views/manage/subpages/MyAnime.vue");
 const routes = [
   {
     path: "/",
@@ -36,6 +38,23 @@ const routes = [
     path: "/admin",
     name: "admin",
     component: Admin,
+  },
+  {
+    path: "/manage",
+    name: "manage",
+    component: Manage,
+    children: [
+      {
+        path: "dashboard",
+        name: "manage-dashboard",
+        component: ManageDashboard,
+      },
+      {
+        path: "myanime",
+        name: "manage-my-anime",
+        component: ManageMyAnime,
+      },
+    ],
   },
 ];
 

@@ -3,7 +3,7 @@
     <div class="header-flex">
       <div class="tw-flex tw-items-center">
         <div class="tw-text-2xl tw-font-bold tw-pr-14"><span class="tw-text-[#BD203E]">ANIME</span> BOOTH</div>
-        <v-bottom-navigation height="65" flat width="auto" :elevation="0" style="background:transparent">
+        <v-bottom-navigation active-class="grey darken-4" height="65" flat width="auto" :elevation="0" style="background:transparent">
           <v-btn height="100%" link to="/">
             <span>Home</span>
             <v-icon>mdi-home </v-icon>
@@ -11,6 +11,14 @@
           <v-btn height="100%" link to="/animelist">
             <span>Browse Anime</span>
             <v-icon>mdi-television-play</v-icon>
+          </v-btn>
+          <v-btn height="100%" link to="/manage">
+            <span>Manage</span>
+            <v-icon>mdi-cog-play</v-icon>
+          </v-btn>
+          <v-btn height="100%" link to="/admin">
+            <span>Admin</span>
+            <v-icon>mdi-shield-crown</v-icon>
           </v-btn>
         </v-bottom-navigation>
       </div>

@@ -10,16 +10,18 @@ import VueApollo from "vue-apollo";
 import AppApollo from "./plugins/util/appApollo";
 import userApi from "./api/userApi";
 import userData from "./plugins/util/userData";
+import jikan from "./api/jikanApi";
+
 import WebTorrent from "webtorrent";
 const webTorrent = new WebTorrent();
 
+Vue.prototype.$jikan = jikan;
 Vue.prototype.$userApi = userApi;
 Vue.prototype.$webTorrent = webTorrent;
 Vue.use(VueApollo);
 Vue.use(AppApollo);
 Vue.use(VueCookies);
 Vue.use(userData, userApi);
-
 Vue.config.productionTip = false;
 new Vue({
   router,
