@@ -9,7 +9,7 @@ router.get("/", async (req, res) => {
   res.send("12");
 });
 
-router.get("/manage/anime");
+router.get("/manage/anime", isAuth, AnimeController.anime);
 
 router.get("/anime", AnimeController.anime);
 router.get("/anime/genres", AnimeController.animeGenres);
