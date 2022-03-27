@@ -26,7 +26,7 @@
       <v-menu :max-width="366" :open-delay="500" offset-y transition="scale-transition" :value="searchText">
         <template v-slot:activator="{ on, attrs }">
           <div class="tw-flex tw-justify-end tw-items-center tw-space-x-3">
-            <v-progress-circular v-if="$apollo.loading" indeterminate color="#BD203E"></v-progress-circular>
+            <v-progress-circular v-if="loading" indeterminate color="#BD203E"></v-progress-circular>
             <form @submit.prevent="submitSearch">
               <v-text-field v-model="searchText" hide-details="true" placeholder="Search Anime..." filled rounded dense v-bind="attrs" v-on="on"></v-text-field>
             </form>
@@ -103,19 +103,20 @@ export default {
   data: () => ({
     searchText: "",
     limit: 5,
+    animeListSearched: null,
+    loading: false,
   }),
   computed: {
-    ...mapState("anime", ["animeListSearched"]),
     animeList() {
       return (
-        this.animeListSearched && this.searchText && this.animeListSearched.rows
+        this.animeListSearched && this.searchText && this.animeListSearched.data
       );
     },
     resultCount() {
       return (
         this.animeListSearched &&
-        this.animeListSearched.rows &&
-        this.animeListSearched.rows.length
+        this.animeListSearched.total &&
+        this.animeListSearched.total
       );
     },
   },
@@ -138,10 +139,13 @@ export default {
         this.timer = null;
       }
       this.timer = setTimeout(async () => {
-        await this.getAnimeListSearched({
-          search: this.searchText,
+        this.loading = true;
+        const response = await this.getAnimeListSearched({
+          q: this.searchText,
           limit: this.limit,
         });
+        this.animeListSearched = response.data;
+        this.loading = false;
       }, 500);
     },
   },

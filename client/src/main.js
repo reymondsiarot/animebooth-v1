@@ -5,28 +5,24 @@ import router from "./router";
 import VueCookies from "vue-cookies";
 import vuetify from "./plugins/vuetify";
 import "./assets/css/tailwind.css";
-import apolloProvider from "./plugins/apollo";
-import VueApollo from "vue-apollo";
-import AppApollo from "./plugins/util/appApollo";
-import userApi from "./api/userApi";
+
+import { animeApi, authApi, jikanApi } from "./api";
 import userData from "./plugins/util/userData";
-import jikan from "./api/jikanApi";
+import "../node_modules/nprogress/nprogress.css";
 
 import WebTorrent from "webtorrent";
 const webTorrent = new WebTorrent();
 
-Vue.prototype.$jikan = jikan;
-Vue.prototype.$userApi = userApi;
+Vue.prototype.$jikan = jikanApi;
+Vue.prototype.$authApi = authApi;
+Vue.prototype.$animeApi = animeApi;
 Vue.prototype.$webTorrent = webTorrent;
-Vue.use(VueApollo);
-Vue.use(AppApollo);
 Vue.use(VueCookies);
-Vue.use(userData, userApi);
+Vue.use(userData, authApi);
 Vue.config.productionTip = false;
 new Vue({
   router,
   store,
   vuetify,
-  provide: apolloProvider.provide(),
   render: (h) => h(App),
 }).$mount("#app");

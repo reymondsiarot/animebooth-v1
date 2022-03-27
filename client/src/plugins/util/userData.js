@@ -1,15 +1,15 @@
-export default (Vue, $userApi) => {
+export default (Vue, $authApi) => {
   Vue.mixin({
     computed: {
       $auth() {
         try {
-          let userData = Vue.$cookies.get("user") || null;
+          let userData = Vue.$cookies.get("_user") || null;
           let userLogout = null;
           if (userData) {
             // create logout function
             userLogout = async function () {
               try {
-                await $userApi.post("/logout");
+                await $authApi.post("/api/logout");
               } catch (er) {}
               location.reload();
             };

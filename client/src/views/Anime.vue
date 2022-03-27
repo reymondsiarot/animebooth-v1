@@ -28,11 +28,11 @@
 </template>
 
 <script>
-import { mapState, mapMutations, mapActions } from "vuex";
 import AnimeBox from "../components/AnimeBox.vue";
 import NavBreadCrumbs from "../components/NavBreadCrumbs.vue";
 import FilterBar from "../components/FilterBar.vue";
 import TopAnime from "../components/TopAnime.vue";
+import { mapActions } from "vuex";
 export default {
   components: {
     NavBreadCrumbs,
@@ -46,10 +46,13 @@ export default {
       itemPerPage: 20,
       search: "",
       genre: "",
+      animeList: null,
     };
   },
   async mounted() {
-    await this.initAnimeList();
+    await this.getGenres();
+    const response = await this.initAnimeList();
+    console.log(response);
   },
   watch: {
     "$route.query.q": async function (val) {
@@ -64,32 +67,28 @@ export default {
     },
   },
   computed: {
-    ...mapState("anime", ["animeList"]),
     mainAnimeList() {
-      return this.animeList ? this.animeList.rows : [];
+      return this.animeList ? this.animeList.data : [];
     },
     pageLength() {
-      if (this.animeList) {
-        const count = this.animeList.count || 1;
-        return Math.ceil(count / this.itemPerPage);
-      }
-      return 1;
+      return this.animeList && this.animeList.last_page;
     },
   },
   methods: {
-    ...mapMutations("anime", ["setAnimeList"]),
-    ...mapActions("anime", ["getAnimeList"]),
+    ...mapActions("anime", ["getAnimeList", "getGenres"]),
     async initAnimeList() {
       this.page = Number(this.$route.query.page) || 1;
       this.search = this.$route.query.q || "";
       this.genre = this.$route.query.genre || "";
       const limit = this.itemPerPage;
-      await this.getAnimeList({
+      const response = await this.getAnimeList({
         page: this.page,
-        search: this.search,
+        pageSize: limit,
+        q: this.search,
         genre: this.genre,
-        limit: limit,
       });
+      console.log(response);
+      if (response.success) this.animeList = response.data && response.data;
     },
   },
 };

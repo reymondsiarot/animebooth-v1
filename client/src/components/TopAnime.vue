@@ -27,13 +27,16 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
 export default {
+  data() {
+    return {
+      topAnime: [],
+    };
+  },
   mounted() {},
   computed: {
-    ...mapState("anime", ["topAnime"]),
     topAnimeList() {
-      return this.topAnime.rows;
+      return this.topAnime;
     },
   },
 };

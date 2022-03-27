@@ -65,13 +65,15 @@ export default {
     },
   }),
   methods: {
-    ...mapActions("user", ["userLogin"]),
+    ...mapActions("user", ["userLogin", "sanctumCSRF"]),
     async login() {
+      await this.sanctumCSRF();
       const response = await this.userLogin(this.form);
       console.log(response);
       if (response.success) {
         return location.reload();
       }
+
       this.error.status = true;
       this.error.message = response.message;
     },

@@ -6,7 +6,6 @@
 
 <script>
 // @ is an alias to /src
-import GQLAnimeByLink from "../../graphql/getAnimeByLink";
 
 export default {
   apollo: {

@@ -41,7 +41,7 @@
                     <td class=" tw-py-2">{{ anime.type }}</td>
                     <td class=" tw-py-2">{{ anime.episodes }}</td>
                     <td class=" tw-py-2">
-                      <v-btn color="green">Add to Queue</v-btn>
+                      <v-btn color="green" @click="addAnime(anime)">Add to Queue</v-btn>
                     </td>
                   </tr>
                 </tbody>
@@ -55,6 +55,7 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 export default {
   data: () => ({
     anime: [],
@@ -80,6 +81,7 @@ export default {
     },
   },
   methods: {
+    ...mapActions("anime", ["addAnime"]),
     async searchAnimeFromJikan() {
       try {
         const response = await this.$jikan.get("/anime", {

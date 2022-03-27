@@ -61,10 +61,12 @@ export default {
     genres() {
       try {
         if (this.anime) {
-          let anime = JSON.parse(this.anime.genres);
+          let anime = (this.anime.genres && this.anime.genres) || [];
           return anime.map((genre) => genre.name);
         }
-      } catch (er) {}
+      } catch (er) {
+        console.log(er);
+      }
     },
   },
   methods: {

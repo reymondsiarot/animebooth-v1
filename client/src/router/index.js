@@ -1,7 +1,8 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import auth from "./middleware/auth";
-
+import NProgress from "nprogress";
+NProgress.configure({ showSpinner: false });
 Vue.use(VueRouter);
 
 const Home = () => import("../views/Home.vue");
@@ -65,5 +66,17 @@ const router = new VueRouter({
 });
 
 router.beforeEach(auth);
+
+router.beforeResolve((to, from, next) => {
+  if (to.name) {
+    // Start the route progress bar.
+    NProgress.start();
+  }
+  next();
+});
+
+router.afterEach((to, from) => {
+  NProgress.done();
+});
 
 export default router;

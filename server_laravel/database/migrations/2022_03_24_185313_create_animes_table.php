@@ -15,20 +15,21 @@ class CreateAnimesTable extends Migration
     {
         Schema::create('animes', function (Blueprint $table) {
             $table->id();
-            $table->integer("mal_id");
+            $table->integer("mal_id")->unique();
             $table->string("anime_link");
             $table->string("url")->nullable();
-            $table->longText("images")->nullable();
-            $table->longText("trailer")->nullable();
+            $table->json("images")->nullable();
+            $table->json("trailer")->nullable();
             $table->string("title");
             $table->string("title_english")->nullable();
             $table->string("title_japanese")->nullable();
-            $table->longText("title_synonyms")->nullable();
+            $table->json("title_synonyms")->nullable();
             $table->string("type")->nullable();
             $table->string("source")->nullable();
             $table->integer("episodes")->nullable();
             $table->string("status")->nullable();
             $table->boolean("airing")->nullable();
+            $table->json("aired")->nullable();
             $table->string("duration")->nullable();
             $table->string("rating")->nullable();
             $table->float("score")->nullable();
@@ -37,10 +38,10 @@ class CreateAnimesTable extends Migration
             $table->integer("popularity")->nullable();
             $table->integer("members")->nullable();
             $table->integer("favorites")->nullable();
-            $table->string("synopsis")->nullable();
-            $table->string("background")->nullable();
+            $table->longText("synopsis")->nullable();
+            $table->longText("background")->nullable();
             $table->string("premiered")->nullable();
-            $table->longText("broadcast")->nullable();
+            $table->json("broadcast")->nullable();
             $table->json("related")->nullable();
             $table->json("producers")->nullable();
             $table->json("licensors")->nullable();

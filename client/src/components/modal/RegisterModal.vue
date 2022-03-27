@@ -27,9 +27,10 @@
 
             </v-alert>
             <form @submit.prevent="register">
-              <v-text-field tabindex="1" v-model="form.email" color="white" hide-details dense class="py-0 mb-4" filled label="Email" append-icon="mdi-account"></v-text-field>
-              <v-text-field tabindex="2" v-model="form.password" color="white" hide-details dense class="py-0 mb-4" filled label="Password" :type="passShow ? 'text' : 'password'" @click:append="passShow = !passShow" :append-icon="passShow ? 'mdi-eye' : 'mdi-eye-off'"></v-text-field>
-              <v-text-field tabindex="3" v-model="form.cpassword" color="white" hide-details dense class="py-0 mb-4" filled label="Confirm Password" :type="passShow1 ? 'text' : 'password'" @click:append="passShow1 = !passShow1" :append-icon="passShow1 ? 'mdi-eye' : 'mdi-eye-off'"></v-text-field>
+              <v-text-field tabindex="1" v-model="form.name" color="white" hide-details dense class="py-0 mb-4" filled label="name" append-icon="mdi-account"></v-text-field>
+              <v-text-field tabindex="2" v-model="form.email" color="white" hide-details dense class="py-0 mb-4" filled label="Email" append-icon="mdi-account"></v-text-field>
+              <v-text-field tabindex="3" v-model="form.password" color="white" hide-details dense class="py-0 mb-4" filled label="Password" :type="passShow ? 'text' : 'password'" @click:append="passShow = !passShow" :append-icon="passShow ? 'mdi-eye' : 'mdi-eye-off'"></v-text-field>
+              <v-text-field tabindex="4" v-model="form.password_confirmation" color="white" hide-details dense class="py-0 mb-4" filled label="Confirm Password" :type="passShow1 ? 'text' : 'password'" @click:append="passShow1 = !passShow1" :append-icon="passShow1 ? 'mdi-eye' : 'mdi-eye-off'"></v-text-field>
               <div class="tw-flex tw-justify-center tw-mb-4">
                 <vue-recaptcha @expired="errorCaptcha" @error="errorCaptcha" @verify="verifyCaptcha" ref="recaptcha" :sitekey="siteKey" />
               </div>
@@ -69,7 +70,7 @@ export default {
     form: {
       email: "",
       password: "",
-      cpassword: "",
+      password_confirmation: "",
     },
   }),
   computed: {
@@ -86,7 +87,6 @@ export default {
     async register() {
       this.clearError();
       const response = await this.userRegister(this.form);
-      console.log(response);
       if (response.success) {
         return location.reload();
       }

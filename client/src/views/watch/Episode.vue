@@ -89,7 +89,6 @@
 </template>
 
 <script>
-import GQLepisode from "../../graphql/episode";
 import NavBreadCrumbs from "../../components/NavBreadCrumbs.vue";
 export default {
   apollo: {

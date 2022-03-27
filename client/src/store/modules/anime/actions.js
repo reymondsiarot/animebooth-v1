@@ -1,32 +1,45 @@
-import GQLanime from "../../../graphql/anime.js";
-import apolloProvider from "../../../plugins/apollo";
-const apolloQuery = apolloProvider.defaultClient;
 const actions = {
-  getAnimeList: async ({ commit, state }, payload) => {
-    const { data, errors } = await apolloQuery.query({
-      query: GQLanime,
-      variables: { ...payload, is_search: false },
-    });
-    if (errors) {
-      throw errors;
+  async getAdminAnimeList({ commit, state }, payload) {},
+  async getAnimeList({}, payload) {
+    try {
+      const response = await this._vm.$animeApi.get("/animes", {
+        params: payload,
+      });
+      return response.data;
+    } catch (err) {
+      console.log(err);
+      return { success: false, message: err };
     }
-    commit("setAnimeList", data.animeList);
-    commit("setGenres", data.genres);
-    commit("setTopAnime", data.topAnime);
-    console.log("GET ANIME LIST ACTION", data, state.genres);
   },
-  getAnimeListSearched: async ({ commit }, payload) => {
-    const { data, errors } = await apolloQuery.query({
-      query: GQLanime,
-      variables: { ...payload, is_search: true },
-    });
-    if (errors) {
-      console.log(errors);
-      throw errors;
+  async getGenres({ commit }) {
+    try {
+      const response = await this._vm.$animeApi.get("/genres");
+      if (response.data.success) commit("setGenres", response.data.data);
+    } catch (err) {
+      console.log(err);
+      return { success: false, message: err };
     }
+  },
+  async getAnimeListSearched({ commit }, payload) {
+    try {
+      const response = await this._vm.$animeApi.get("/animes", {
+        params: payload,
+      });
+      return response.data;
+    } catch (err) {
+      console.log(err);
+      return { success: false, message: err };
+    }
+  },
 
-    commit("setAnimeListSearched", data.animeList);
-    console.log(data);
+  async addAnime({}, payload) {
+    try {
+      const response = await this._vm.$animeApi.post("/animes", payload);
+      return response.data;
+    } catch (err) {
+      console.log(err);
+      return { success: false, message: err };
+    }
   },
 };
 export default actions;

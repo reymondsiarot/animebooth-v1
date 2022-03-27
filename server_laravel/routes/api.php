@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AnimeController;
+use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -15,8 +16,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware('auth:sanctum')->get('/init', function (Request $request) {
+    return response()->json()->withHeaders(['x-user'=>auth()->user(),'Access-Control-Expose-Headers'=>'x-user']);
 });
 
 Route::get('/animes', [AnimeController::class,"index"]);
@@ -25,4 +26,11 @@ Route::post('/animes', [AnimeController::class,"store"]);
 Route::put('/animes/{id}', [AnimeController::class,"update"]);
 Route::delete('/animes/{id}', [AnimeController::class,"destroy"]);
 Route::get('/animes/{id}/watch', [AnimeController::class,"watch"]);
+
+Route::get("/genres",[AnimeController::class,"getGenres"]);
+
+
+Route::post("/login",[AuthController::class,"login"]);
+Route::post("/logout",[AuthController::class,"logout"]);
+Route::post("/register",[AuthController::class,"register"]);
 
